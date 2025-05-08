@@ -52,6 +52,12 @@ public class Movement : NetworkBehaviour
         if (animator != null)
         {
             animator.SetBool("run", inputMovement != Vector2.zero);
+
+            // Attack trigger – aktiveres når man trykker på SPACE
+            if (keyboard.spaceKey.wasPressedThisFrame)
+            {
+                animator.SetTrigger("attack");
+            }
         }
 
         // Sæt flipX og synkronisér det
