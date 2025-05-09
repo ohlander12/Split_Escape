@@ -6,40 +6,40 @@ public class CustomSpawnManager : NetworkBehaviour
     public GameObject player1Prefab;
     public GameObject player2Prefab;
 
+    public Transform player1Spawn;
+    public Transform player2Spawn;
+
     public override void OnNetworkSpawn()
     {
         if (IsServer)
         {
-            // Spawner hostens egen spiller
             SpawnPlayer(NetworkManager.Singleton.LocalClientId);
-
-            // Spawner nye klienter når de forbinder
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
         }
     }
 
     private void HandleClientConnected(ulong clientId)
     {
-        // Undgå at spawne host igen
         if (clientId == NetworkManager.Singleton.LocalClientId) return;
-
         SpawnPlayer(clientId);
     }
 
     private void SpawnPlayer(ulong clientId)
     {
         GameObject prefabToSpawn;
+        Vector3 spawnPosition;
 
-        if (clientId == 0) // Host har altid clientId = 0
+        if (clientId == 0)
         {
             prefabToSpawn = player1Prefab;
+            spawnPosition = player1Spawn.position;
         }
         else
         {
             prefabToSpawn = player2Prefab;
+            spawnPosition = player2Spawn.position;
         }
 
-        Vector3 spawnPosition = Vector3.right * (int)clientId * 2;
         var instance = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
         instance.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId);
     }
