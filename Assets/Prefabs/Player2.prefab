@@ -19,8 +19,8 @@ GameObject:
   - component: {fileID: 2910454756401635005}
   - component: {fileID: 2521020095949708987}
   - component: {fileID: 5016388931947781075}
-  - component: {fileID: 9052638396906653186}
   - component: {fileID: 4263586990826384012}
+  - component: {fileID: 2035556161445298736}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Player
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: fb4cca35b23c6ea40b8495cb49592fe6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -359,20 +359,6 @@ MonoBehaviour:
     TriggerNameHash: 964231127
     TransitionIndex: 1
   m_Animator: {fileID: 2521020095949708987}
---- !u!114 &9052638396906653186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2399848199290393649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f504179c450dcaa49b4ce8663aabd67e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 100
 --- !u!114 &4263586990826384012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +372,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackHitbox: {fileID: 2405656328914369850}
+--- !u!114 &2035556161445298736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2399848199290393649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f504179c450dcaa49b4ce8663aabd67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  maxHealth: 10
 --- !u!1 &2405656328914369850
 GameObject:
   m_ObjectHideFlags: 0

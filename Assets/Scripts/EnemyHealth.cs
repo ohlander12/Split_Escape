@@ -4,29 +4,22 @@ using UnityEngine;
 public class EnemyHealth : NetworkBehaviour
 {
     public int maxHealth = 3;
-    private NetworkVariable<int> currentHealth = new NetworkVariable<int>();
+    private int currentHealth;
 
     private void Start()
     {
-        currentHealth.Value = maxHealth;
+        currentHealth = maxHealth;
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void TakeDamageServerRpc(int damage)
     {
-        if (!IsServer) return;
+        currentHealth -= damage;
 
-        currentHealth.Value -= damage;
-
-        if (currentHealth.Value <= 0)
+        if (currentHealth <= 0)
         {
-            Die();
+            EnemyManager.Instance.NotifyEnemyDied();
+            Destroy(gameObject);
         }
-    }
-
-    private void Die()
-    {
-        // Her kan du spille en animation, droppe loot eller andet
-        Destroy(gameObject); // fjern fjenden for alle
     }
 }
