@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class EnemyHealth : NetworkBehaviour
+public class BossHealth : NetworkBehaviour
 {
     public int maxHealth = 3;
     private int currentHealth;
@@ -18,7 +18,7 @@ public class EnemyHealth : NetworkBehaviour
 
         if (currentHealth <= 0)
         {
-            EnemyManager.Instance.NotifyEnemyDied();
+            BossManager.Instance.NotifyEnemyDied();
             Destroy(gameObject);
         }
     }

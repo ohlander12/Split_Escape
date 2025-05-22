@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7411050466073118470}
   - component: {fileID: 8952608497006158674}
   - component: {fileID: 1260466463427577487}
-  - component: {fileID: 8627056238544154854}
   - component: {fileID: 4196953098904923117}
   - component: {fileID: 6564282391909102923}
   - component: {fileID: 2230861425023724511}
@@ -19,8 +18,9 @@ GameObject:
   - component: {fileID: 1215875394073353157}
   - component: {fileID: -5373228336282004285}
   - component: {fileID: 4116175685530778070}
+  - component: {fileID: -230314571227282442}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,13 +34,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3809024449402881111}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -42.95343, y: 48.78152, z: 0}
-  m_LocalScale: {x: 0.7464992, y: 0.6385, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: -42.7056, y: 48.0937, z: 0}
+  m_LocalScale: {x: 2.1081083, y: 2.221213, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!212 &8952608497006158674
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300014, guid: a0e7f1167efba544bb8d6e3198ae44f9, type: 3}
+  m_Sprite: {fileID: 21300006, guid: a50747b7090647445a1aa71f3aefd771, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 1381644434
+  GlobalObjectIdHash: 1743662265
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -121,20 +121,6 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &8627056238544154854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3809024449402881111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77711f450c9c0574b8681e6fafe4876a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 3
 --- !u!50 &4196953098904923117
 Rigidbody2D:
   serializedVersion: 5
@@ -196,17 +182,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0170784, y: 0.75}
+  m_Offset: {x: -0.064550966, y: -0.01704812}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5196411, y: 0.0013155937}
-    oldSize: {x: 1.5, y: 3.2}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3.3333333, y: 3.1333334}
     newSize: {x: 2.3, y: 1.6}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.91041565, y: 1.5}
+  m_Size: {x: 1.6735835, y: 2.5754013}
   m_EdgeRadius: 0
 --- !u!114 &2230861425023724511
 MonoBehaviour:
@@ -225,7 +211,7 @@ MonoBehaviour:
   damageAmount: 1
   attackCooldown: 1
   attackRange: 0.5
-  aggroRange: 6
+  aggroRange: 8
 --- !u!114 &-5038086303863329637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,7 +285,7 @@ Animator:
   m_GameObject: {fileID: 3809024449402881111}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 666e598c1b3891041b14f9a7a629e730, type: 2}
+  m_Controller: {fileID: 9100000, guid: e9628f3cd86229042a78a3a1701d6248, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -326,3 +312,17 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   TransitionStateInfoList: []
   m_Animator: {fileID: -5373228336282004285}
+--- !u!114 &-230314571227282442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3809024449402881111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2b36ca5aa7b7cd4a9bac179c8ec88ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  maxHealth: 3

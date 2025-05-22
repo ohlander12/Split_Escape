@@ -9,12 +9,22 @@ public class AttackHitboxTrigger : NetworkBehaviour
 
         if (other.TryGetComponent<EnemyHealth>(out var enemy))
         {
-            enemy.TakeDamageServerRpc(1); // du kan justere skaden her
+            enemy.TakeDamageServerRpc(1);
+        }
+
+        if (other.TryGetComponent<BossHealth>(out var boss))
+        {
+            boss.TakeDamageServerRpc(1);
         }
 
         if (other.TryGetComponent<LeverActivator>(out var lever))
         {
             lever.ActivateLeverServerRpc();
+        }
+
+        if (other.TryGetComponent<PlatformTrigger>(out var platform))
+        {
+            platform.ActivatePlatformServerRpc();
         }
     }
 }
