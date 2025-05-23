@@ -1,19 +1,71 @@
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
+using Unity.Services.Relay;
+using Unity.Services.Relay.Models;
+using Unity.Netcode.Transports.UTP;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using System.Threading.Tasks;
+using Unity.Networking.Transport.Relay;
 
 public class MainMenuUI : MonoBehaviour
 {
-    public void StartAsHost()
+    private bool unityServicesInitialized = false;
+
+    public async void StartAsHost()
     {
-        NetworkManager.Singleton.StartHost();
-        NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        await InitializeUnityServices();
+
+        try
+        {
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(4);
+            string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
+            Debug.Log("Relay Join Code: " + joinCode);
+
+            UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetRelayServerData(new RelayServerData(allocation, "dtls"));
+
+            NetworkManager.Singleton.StartHost();
+            NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.LogError("Relay Host Error: " + e.Message);
+        }
     }
 
-    public void StartAsClient()
+    public async void StartAsClient(string joinCode)
     {
-        NetworkManager.Singleton.StartClient();
-        // Scene skift sker automatisk når host loader den
+        await InitializeUnityServices();
+
+        try
+        {
+            JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+            UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
+            transport.SetRelayServerData(new RelayServerData(joinAllocation, "dtls"));
+
+            NetworkManager.Singleton.StartClient();
+        }
+        catch (RelayServiceException e)
+        {
+            Debug.LogError("Relay Client Error: " + e.Message);
+        }
+    }
+
+    private async Task InitializeUnityServices()
+    {
+        if (!unityServicesInitialized)
+        {
+            await UnityServices.InitializeAsync();
+            unityServicesInitialized = true;
+
+            if (!AuthenticationService.Instance.IsSignedIn)
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            }
+        }
     }
 
     public void QuitGame()
