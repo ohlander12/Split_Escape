@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  maxHealth: 10
+  maxHealth: 5
 --- !u!1 &3575086457103701599
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +453,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.19743013, y: -0.060747623}
+  m_Offset: {x: -0.58204436, y: -0.060747623}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -463,7 +463,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1.3948603, y: 1.3644867}
+  m_Size: {x: 2.9538102, y: 1.3644867}
   m_EdgeRadius: 0
 --- !u!114 &1405293573286390787
 MonoBehaviour:

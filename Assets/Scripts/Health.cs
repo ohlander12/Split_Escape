@@ -1,6 +1,8 @@
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -12,6 +14,7 @@ public class Health : NetworkBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     private Movement movementScript;
+    private HealthUI healthUI;
 
     private bool isDead = false;
 
@@ -25,6 +28,25 @@ public class Health : NetworkBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         movementScript = GetComponent<Movement>();
+
+        if (IsOwner)
+        {
+            healthUI = FindAnyObjectByType<HealthUI>();
+            if (healthUI != null)
+            {
+                healthUI.UpdateHearts(currentHealth.Value);
+            }
+
+            currentHealth.OnValueChanged += OnHealthChanged;
+        }
+    }
+
+    private void OnHealthChanged(int oldValue, int newValue)
+    {
+        if (IsOwner && healthUI != null)
+        {
+            healthUI.UpdateHearts(newValue);
+        }
     }
 
     public void TakeDamage(int amount)
@@ -52,7 +74,19 @@ public class Health : NetworkBehaviour
         {
             currentHealth.Value = 0;
             DieClientRpc();
+
+            if (IsServer)
+            {
+                // Start coroutine med delay før sceneskift
+                StartCoroutine(LoadLoseSceneAfterDelay(2f));
+            }
         }
+    }
+
+    private IEnumerator LoadLoseSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        NetworkManager.SceneManager.LoadScene("LoseScene", LoadSceneMode.Single);
     }
 
     [ClientRpc]

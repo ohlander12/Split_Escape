@@ -223,7 +223,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   moveSpeed: 2
   damageAmount: 1
-  attackCooldown: 1
+  attackCooldown: 3
   attackRange: 0.5
   aggroRange: 6
 --- !u!114 &-5038086303863329637
