@@ -6,12 +6,19 @@ using Unity.Services.Relay.Models;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
+using TMPro;  // Husk denne using for TMP
 using System.Threading.Tasks;
 using Unity.Networking.Transport.Relay;
 
 public class MainMenuUI : MonoBehaviour
 {
     private bool unityServicesInitialized = false;
+
+    [Header("UI References")]
+    public TMP_InputField JoinCodeInputField;
+
+    // Gem join koden her, så andre scripts kan tilgå den
+    public static string CurrentJoinCode = "";
 
     public async void StartAsHost()
     {
@@ -23,10 +30,15 @@ public class MainMenuUI : MonoBehaviour
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             Debug.Log("Relay Join Code: " + joinCode);
 
+            // Gem join koden i static variablen
+            CurrentJoinCode = joinCode;
+
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
             transport.SetRelayServerData(new RelayServerData(allocation, "dtls"));
 
             NetworkManager.Singleton.StartHost();
+
+            // Her kan du evt. sætte en delayed scene load, hvis du vil være sikker på hosten er startet først
             NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
         }
         catch (RelayServiceException e)
@@ -35,8 +47,16 @@ public class MainMenuUI : MonoBehaviour
         }
     }
 
-    public async void StartAsClient(string joinCode)
+    public async void StartAsClient()
     {
+        string joinCode = JoinCodeInputField.text.Trim();
+
+        if (string.IsNullOrEmpty(joinCode))
+        {
+            Debug.LogError("Join code is empty!");
+            return;
+        }
+
         await InitializeUnityServices();
 
         try
