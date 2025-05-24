@@ -6,7 +6,7 @@ using Unity.Services.Relay.Models;
 using Unity.Netcode.Transports.UTP;
 using Unity.Services.Core;
 using Unity.Services.Authentication;
-using TMPro;  // Husk denne using for TMP
+using TMPro;
 using System.Threading.Tasks;
 using Unity.Networking.Transport.Relay;
 
@@ -17,7 +17,6 @@ public class MainMenuUI : MonoBehaviour
     [Header("UI References")]
     public TMP_InputField JoinCodeInputField;
 
-    // Gem join koden her, så andre scripts kan tilgå den
     public static string CurrentJoinCode = "";
 
     public async void StartAsHost()
@@ -38,7 +37,6 @@ public class MainMenuUI : MonoBehaviour
 
             NetworkManager.Singleton.StartHost();
 
-            // Her kan du evt. sætte en delayed scene load, hvis du vil være sikker på hosten er startet først
             NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
         }
         catch (RelayServiceException e)

@@ -14,20 +14,22 @@ public class Movement : NetworkBehaviour
     private NetworkVariable<bool> netFlipX = new NetworkVariable<bool>(
         false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+    public AudioClip attackSound;
+    private AudioSource audioSource;
+
     public override void OnNetworkSpawn()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
 
-        // Sync flipX fra netværket
         netFlipX.OnValueChanged += (oldVal, newVal) =>
         {
             if (spriteRenderer != null)
                 spriteRenderer.flipX = newVal;
         };
 
-        // Vis korrekt side med det samme
         if (!IsOwner && spriteRenderer != null)
         {
             spriteRenderer.flipX = netFlipX.Value;
@@ -48,19 +50,21 @@ public class Movement : NetworkBehaviour
 
         inputMovement = inputMovement.normalized;
 
-        // Sæt animation
         if (animator != null)
         {
             animator.SetBool("run", inputMovement != Vector2.zero);
 
-            // Attack trigger – aktiveres når man trykker på SPACE
             if (keyboard.spaceKey.wasPressedThisFrame)
             {
                 animator.SetTrigger("attack");
+
+                if (audioSource != null && attackSound != null)
+                {
+                    audioSource.PlayOneShot(attackSound);
+                }
             }
         }
 
-        // Sæt flipX og synkronisér det
         if (spriteRenderer != null && inputMovement.x != 0)
         {
             bool flip = inputMovement.x < 0;

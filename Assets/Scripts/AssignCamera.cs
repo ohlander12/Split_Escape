@@ -8,17 +8,13 @@ public class AssignCamera : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (!IsOwner) return; // Kun den lokale spiller skal styre sit kamera
+        if (!IsOwner) return;
 
         vcam = FindFirstObjectByType<CinemachineCamera>();
         if (vcam != null)
         {
             vcam.Follow = transform;
             vcam.LookAt = transform;
-        }
-        else
-        {
-            Debug.LogWarning("CinemachineVirtualCamera not found in scene!");
         }
     }
 }

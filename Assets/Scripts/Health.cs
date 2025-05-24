@@ -57,7 +57,6 @@ public class Health : NetworkBehaviour
         }
     }
 
-    // Bruges af EnemyAI direkte – virker både på klient og host
     public void TakeDamagePublic(int amount)
     {
         TakeDamageServerRpc(amount);
@@ -77,7 +76,6 @@ public class Health : NetworkBehaviour
 
             if (IsServer)
             {
-                // Start coroutine med delay før sceneskift
                 StartCoroutine(LoadLoseSceneAfterDelay(2f));
             }
         }
@@ -100,15 +98,5 @@ public class Health : NetworkBehaviour
 
         if (movementScript != null)
             movementScript.enabled = false;
-
-        // GetComponent<Collider2D>().enabled = false;
-    }
-
-    private void Update()
-    {
-        if (IsOwner && Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            TakeDamage(999);
-        }
     }
 }

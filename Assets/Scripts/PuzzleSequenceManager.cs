@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PuzzleSequenceManager : NetworkBehaviour
 {
-    [SerializeField] private GameObject[] doorsToOpen; // <-- Nu array af døre
+    [SerializeField] private GameObject[] doorsToOpen;
     private string[] correctOrder = { "A", "B", "C", "D" };
     private NetworkVariable<int> currentStep = new NetworkVariable<int>(0);
 
@@ -26,7 +26,7 @@ public class PuzzleSequenceManager : NetworkBehaviour
         }
         else
         {
-            currentStep.Value = 0; // forkert rækkefølge nulstil
+            currentStep.Value = 0; 
         }
     }
 
@@ -35,7 +35,7 @@ public class PuzzleSequenceManager : NetworkBehaviour
     {
         foreach (var door in doorsToOpen)
         {
-            door.SetActive(false); // begge døre åbnes
+            door.SetActive(false);
         }
     }
 }

@@ -10,7 +10,6 @@ public class BossHealth : NetworkBehaviour
     {
         currentHealth = maxHealth;
 
-        // Vend bossen 180 grader rundt om Z-aksen (hvis han kigger baglæns)
         transform.rotation = Quaternion.Euler(0f, 0f, 180f);
     }
 

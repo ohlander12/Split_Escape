@@ -7,12 +7,10 @@ public class JoinCodeDisplay : MonoBehaviour
 
     void Start()
     {
-        // Sæt teksten til join koden gemt i MainMenuUI.CurrentJoinCode
         if (joinCodeText != null)
         {
             joinCodeText.text = "Join Code: " + MainMenuUI.CurrentJoinCode;
         }
     }
-
 
 }

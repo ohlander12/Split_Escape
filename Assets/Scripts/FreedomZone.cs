@@ -8,7 +8,7 @@ public class FreedomZone : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!IsServer) return; // Kun server må håndtere dette
+        if (!IsServer) return;
 
         if (other.CompareTag("Player"))
         {
@@ -16,9 +16,6 @@ public class FreedomZone : NetworkBehaviour
 
             if (playersInside >= 2)
             {
-                Debug.Log("Begge spillere er inde i frihedszonen!");
-
-                // Despawn begge spillere sikkert
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 foreach (var player in players)
                 {
@@ -29,7 +26,6 @@ public class FreedomZone : NetworkBehaviour
                     }
                 }
 
-                // Load "You Won"-scenen for alle
                 LoadWinSceneClientRpc();
             }
         }
@@ -38,6 +34,6 @@ public class FreedomZone : NetworkBehaviour
     [ClientRpc]
     private void LoadWinSceneClientRpc()
     {
-        SceneManager.LoadScene("WinScene"); // Skift navnet hvis din scene hedder noget andet
+        SceneManager.LoadScene("WinScene");
     }
 }

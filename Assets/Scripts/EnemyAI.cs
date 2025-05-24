@@ -82,7 +82,6 @@ public class EnemyAI : NetworkBehaviour
                 Health health = hit.GetComponent<Health>();
                 if (health != null)
                 {
-                    // Brug den nye public metode der sikrer korrekt RPC
                     health.TakeDamagePublic(damageAmount);
                     lastAttackTime = Time.time;
                 }

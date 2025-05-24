@@ -12,21 +12,13 @@ public class LeverActivator : NetworkBehaviour
         if (isActivated) return;
 
         isActivated = true;
-        ActivateLeverClientRpc();
 
         if (doorToOpen != null)
         {
-            // Fjern døren på alle klienter via ClientRpc
             DeactivateDoorClientRpc();
         }
     }
 
-    [ClientRpc]
-    private void ActivateLeverClientRpc()
-    {
-        Debug.Log("Lever activated!");
-        // Du kan spille lyd/animation her også
-    }
 
     [ClientRpc]
     private void DeactivateDoorClientRpc()
