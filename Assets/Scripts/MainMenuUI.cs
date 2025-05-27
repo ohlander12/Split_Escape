@@ -29,7 +29,6 @@ public class MainMenuUI : MonoBehaviour
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             Debug.Log("Relay Join Code: " + joinCode);
 
-            // Gem join koden i static variablen
             CurrentJoinCode = joinCode;
 
             UnityTransport transport = NetworkManager.Singleton.GetComponent<UnityTransport>();
